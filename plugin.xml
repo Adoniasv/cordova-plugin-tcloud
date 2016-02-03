@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        id="tcloud-util"
+        version="1.1.0">
+    <name>TCloud</name>
+    <description>Servicios</description>
+    <license>Apache 2.0</license>
+
+    <!-- android -->
+    <platform name="android">
+
+        <framework src="com.google.android.gms:play-services:+" />
+        <framework src="com.loopj.android:android-async-http:+" />
+        <framework src="com.loopj.android:android-async-http:+" />
+        <framework src="com.loopj.android:android-async-http:+" />
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="TCloud" >
+                <param name="android-package" value="com.tcloud.util"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+            <uses-permission android:name="android.permission.WAKE_LOCK" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+            <uses-permission android:name="android.permission.VIBRATE"/>
+            <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+            <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+            <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <!-- Iniciar onBoot -->
+            <receiver
+                    android:name="com.tcloud.util.BootCompleted">
+                <intent-filter>
+                    <action android:name="android.intent.action.BOOT_COMPLETED" />
+                </intent-filter>
+            </receiver>
+
+            <!-- GPS -->
+            <service android:name="com.tcloud.util.LocationService" >
+            </service>
+        </config-file>
+
+        <!-- Archivos -->
+        <source-file src="src/android/BootCompleted.java" target-dir="src/com/tcloud/util" />
+        <source-file src="src/android/LocationService.java" target-dir="src/com/tcloud/util" />
+        <source-file src="src/android/Constantes.java" target-dir="src/com/tcloud/util" />
+        <source-file src="src/android/CoreDB.java" target-dir="src/com/tcloud/util" />
+
+    </platform>
+
+
+</plugin>
